@@ -147,19 +147,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-test" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2017-09-14-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/14/test/">test</a>
+      <a class="article-title" href="/2017/09/14/2017-09-14-01/">IOS系统列表页，同时存在input元素和fixed布局的兼容性问题</a>
     </h1>
   
 
         
-        <a href="/2017/09/14/test/" class="archive-article-date">
+        <a href="/2017/09/14/2017-09-14-01/" class="archive-article-date">
   	<time datetime="2017-09-14T10:55:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
 </a>
         
@@ -167,7 +167,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>dddd</p>
+        <p><strong> 问题 </strong></p>
+<blockquote>
+<p>移动端开发中，在iphone系统上，若某个可滑动的列表页面同时存在input和fixed定位的元素，则可能存在兼容性问题，导致fixed定位失效</p>
+</blockquote>
+<p><a href="/assets/demoHTML/2017-09-14-01/demo1.html">查看一个简单demo</a></p>
+<p><strong> absolute解决方案 </strong><br>既然fixed定位会失效。用absolute进行替代是一种解决方案。<br>以首部具有fixed定位的input框，底部有fixed定位按钮的列表为例：<br>具体思路为：将需要fixed定位的元素移至和列表容器同级。fixed定位元素改为absolute，列表容器height：calc(100vh - 底部按钮高度)。</p>
+<p>HTML<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;header absoluted&quot;&gt;</div><div class="line">	&lt;input&gt;按钮&lt;/input&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;container&quot;&gt;</div><div class="line">  &lt;div class=&quot;box&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">      &lt;li&gt;第一列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第二列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第三列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第四列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第五列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第六列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第七列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第八列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第九列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十一列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十二列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十三列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十四列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十五列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十六列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十七列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十八列&lt;/li&gt;</div><div class="line">      &lt;li&gt;第十九列&lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;footer absoluted&quot;&gt;</div><div class="line">  &lt;button&gt;按钮&lt;/button&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">.container &#123;</div><div class="line">  font-size: 16px;</div><div class="line">  height: calc(100vh - 40px);</div><div class="line">  overflow-y: scroll;</div><div class="line">&#125;</div><div class="line">.box &#123;</div><div class="line">  background-color: #f0f0f0;</div><div class="line">  height: 100%;</div><div class="line">&#125;</div><div class="line">.box ul &gt; li &#123;</div><div class="line">  height: 50px;</div><div class="line">  padding-bottom: 10px</div><div class="line">&#125;</div><div class="line">.footer &#123;</div><div class="line">  height: 40px;</div><div class="line">  background: red;</div><div class="line">  width: 100%;</div><div class="line">&#125;</div><div class="line">button &#123;</div><div class="line">  width: 100%;</div><div class="line">  height: 40px;</div><div class="line">&#125;</div><div class="line">.absoluted &#123;</div><div class="line">  position: absolute;</div><div class="line">  bottom: 0;</div><div class="line">  left: 0;</div><div class="line">  z-index: 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里面用到了calc的减法以及vh单位；目前的兼容性Android4.4及以上满足。不支持4.3及以下的系统。</p>
+<p><strong> 问题延伸 </strong></p>
+<blockquote>
+<p>IOS下，当弹窗里面存在input。当input输入框输入内容时，调出输入法，输入法框和弹窗蒙层之间会有一些间距。</p>
+</blockquote>
+<p><strong> absolute替换法 </strong><br>同样，正常情况下，我们会将蒙层fixed定位，内容absolute定位。为了解决这个问题，我们可以先将蒙层absolute定位，里面的内容fixed定位。<br>并需要添加一些js代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(function()&#123;</div><div class="line">  $(&apos;.弹窗&apos;).height($(document).height)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 
       
 
@@ -176,74 +189,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IOS 移动端 fixed input 兼容性</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/14/test/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-demo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/14/demo/">demo</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/14/demo/" class="archive-article-date">
-  	<time datetime="2017-09-14T10:04:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>demo<br>hello world</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/14/demo/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/09/14/2017-09-14-01/">展开全文 >></a>
         </p>
       
 
@@ -435,6 +396,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IOS 移动端 fixed 兼容性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS 移动端 fixed input 兼容性</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
